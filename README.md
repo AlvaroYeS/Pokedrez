@@ -1,9 +1,11 @@
-# Korge Hello World and Template
+# Proyecto APB- Fase inicial
 
-This is a Hello World and Template for the KorGe game engine. Using gradle with kotlin-dsl.
-You can open this project in IntelliJ IDEA by opening the folder or the build.gradle.kts file.
+## 1º Informe sobre el proyecto:
 
-You can find this template at GitHub: <https://github.com/korlibs/korge-hello-world>
+En este proyecto, desarrollaremos un videojuego estratégico que fusiona elementos icónicos de Pokémon y el estilo táctico de Teamfight Tactics (TFT). El objetivo es ofrecer una experiencia única que combine el estilo pokémon con la idea de desplegarlos en un tablero para que se adapten a cada partida para nosotros representa un reto en el que queremos abarcar los conocimientos que tenemos de las materias que estamos cursando, además de experimentar con un trabajo en equipo tan elaborado.
 
+**Meta del proyecto:** Crear un juego que sea funcional, desafiante y atractivo tanto para los fans de Pokémon como para los entusiastas de los juegos de estrategia como TFT. Buscamos destacar por una jugabilidad innovadora y una experiencia que fomente la rejugabilidad.
 
-You can find the KorGE documentation here: <https://docs.korge.org/korge/>
+**Equipo**: Este proyecto será llevado a cabo por mi(Saúl), Victor y Álvaro
+
+<3
