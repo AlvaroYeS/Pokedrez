@@ -20,6 +20,7 @@ suspend fun main() = Korge(windowSize = Size(512, 512), backgroundColor = Colors
 
 class MyScene : PixelatedScene(128 * 10, 128 * 10, sceneSmoothing = true) {
 	override suspend fun SContainer.sceneMain() {
+        image(resourcesVfs["bgs/field.jpg"].readBitmap())
         val bgs = listOf(resourcesVfs["bgs/square brown dark.png"].readBitmap(), resourcesVfs["bgs/square brown light.png"].readBitmap())
 
         for (x in 0 until 8) {
