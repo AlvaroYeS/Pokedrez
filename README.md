@@ -6,6 +6,6 @@ En este proyecto, desarrollaremos un videojuego estratégico que fusiona element
 
 **Meta del proyecto:** Crear un juego que sea funcional, desafiante y atractivo tanto para los fans de Pokémon como para los entusiastas de los juegos de estrategia como TFT. Buscamos destacar por una jugabilidad innovadora y una experiencia que fomente la rejugabilidad.
 
-**Equipo**: Este proyecto será llevado a cabo por mi(Saúl), Victor y Álvaro
+**Equipo**: Este proyecto será llevado a cabo por Saúl, Victor y Álvaro
 
 <3
