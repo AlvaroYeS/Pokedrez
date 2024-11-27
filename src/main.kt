@@ -12,7 +12,7 @@ import korlibs.math.geom.*
 import korlibs.math.interpolation.*
 import kotlin.random.*
 
-suspend fun main() = Korge(windowSize = Size(512, 512), backgroundColor = Colors["#2b2b2b"]) {
+suspend fun main() = Korge(windowSize = Size(1024, 1024), backgroundColor = Colors["#2b2b2b"]) {
 	val sceneContainer = sceneContainer()
 
 	sceneContainer.changeTo { MyScene() }
@@ -25,17 +25,31 @@ class MyScene : PixelatedScene(128 * 12, 128 * 12, sceneSmoothing = true) {
 
         //Tablero
         for (x in 0 until 8) {
-            for (y in 0 until 8) {
-                image(bgs[(x + y).isOdd.toInt()]).xy(128 * x + 128, 128 * y + 128)
+            for (y in 0 until 2) {
+                image(bgs[(x + y).isOdd.toInt()]).xy(128 * x + 128 - (64 * y), 128 * y + (128 * 4))
             }
         }
 
-        //Primera Fila
+        //Mano
+        for (x in 0 until 8) {
+            val image = resourcesVfs["bgs/square gray light.png"].readBitmap()
+            image(image).xy(128 * x + 192, (7 * 128) + 192).anchor(0.50, 0.50)
+        }
+
+        //Fila de oponente
         for (n in 0 until 8) {
             val num = Random.nextInt(1, 151)
-            val string = "pokemon/icons/$num.png"
+            val string = "pokemon/front/$num.png"
             val image = resourcesVfs[string].readBitmap()
-            image(image).xy(128 * n + 192, 0 + 192).scale(3).anchor(0.50, 0.50)
+            image(image).xy(128 * n + 192, 0 + 192 + (3 * 128)).scale(1.5).anchor(0.50, 0.50)
+        }
+
+        //Fila de usuario
+        for (n in 0 until 8) {
+            val num = Random.nextInt(1, 151)
+            val string = "pokemon/back/$num.png"
+            val image = resourcesVfs[string].readBitmap()
+            image(image).xy(128 * n + 128, 0 + 192 + (4 * 128)).scale(1.5).anchor(0.50, 0.50)
         }
 
         //Fondo Tienda
@@ -49,13 +63,13 @@ class MyScene : PixelatedScene(128 * 12, 128 * 12, sceneSmoothing = true) {
             val num = Random.nextInt(1, 151)
             val string = "pokemon/icons/$num.png"
             val image = resourcesVfs[string].readBitmap()
-            image(image).xy(128 * n + 192, (9 * 128) + 192).scale(3).anchor(0.50, 0.50)
+            image(image).xy(128 * n + 192, (9 * 128) + 192).anchor(0.50, 0.50)
         }
 
         //Fondo Objetos
         for (x in 0 until 8) {
             val image = resourcesVfs["bgs/square gray dark.png"].readBitmap()
-            image(image).xy((9 * 128) + 192, 128 * x + 192).anchor(0.50, 0.50)
+            image(image).xy((9 * 128) + 192, 128 * x + 192 + (2 * 128)).anchor(0.50, 0.50)
         }
 
         //Objetos
@@ -63,7 +77,7 @@ class MyScene : PixelatedScene(128 * 12, 128 * 12, sceneSmoothing = true) {
             val num = Random.nextInt(1, 151)
             val string = "pokemon/icons/$num.png"
             val image = resourcesVfs[string].readBitmap()
-            image(image).xy((9 * 128) + 192, 128 * n + 192).scale(3).anchor(0.50, 0.50)
+            image(image).xy((9 * 128) + 192, 128 * n + 192 + (2 * 128)).anchor(0.50, 0.50)
         }
 	}
 }
