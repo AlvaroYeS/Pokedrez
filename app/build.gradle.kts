@@ -8,6 +8,7 @@ android {
     namespace = "com.example.pokedrez"
     compileSdk = 35
 
+
     defaultConfig {
         applicationId = "com.example.pokedrez"
         minSdk = 24
@@ -28,8 +29,10 @@ android {
         }
     }
     compileOptions {
+        isCoreLibraryDesugaringEnabled = true
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
+
     }
     kotlinOptions {
         jvmTarget = "11"
@@ -49,6 +52,23 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+    implementation(libs.ads.mobile.sdk)
+    //Retrofit
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation(libs.androidx.navigation.compose.jvmstubs)
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.3")
+    // OkHttp (para manejar el cliente HTTP)
+    implementation("com.squareup.okhttp3:okhttp:4.9.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.9.3")
+    // LifeCycle
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.5.0")
+    implementation("androidx.compose.runtime:runtime-livedata:1.3.0")
+    // Material3
+    implementation("androidx.compose.material3:material3:1.1.2")
+    implementation("androidx.compose.material3:material3")
+    implementation("androidx.compose.material3:material3:1.1.1")
+    implementation("androidx.compose.material:material-icons-extended:1.5.4")
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -56,4 +76,5 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
 }
