@@ -13,7 +13,6 @@ class GameViewModel  (private val sessionManager: SessionManager) : ViewModel() 
     val equipoEnemigo = mutableListOf<Pokemon>()
     val tienda = mutableListOf<Pokemon>()
 
-   /*TODO*/
 //    fun iniciarSesion(username: String, password: String): Boolean {
 //        // Simulación de autenticación
 //        if (username.isNotEmpty() && password.isNotEmpty()) {
@@ -23,7 +22,6 @@ class GameViewModel  (private val sessionManager: SessionManager) : ViewModel() 
 //        return false
 //    }
 
-    /*TODO*/
     fun cargarTienda() {
         // Simulación de carga de tienda desde una API
         tienda.clear()
@@ -48,7 +46,6 @@ class GameViewModel  (private val sessionManager: SessionManager) : ViewModel() 
         }
     }
 
-    /*TODO*/
     fun generarEquipoEnemigo() {
         // Simulación de generación de equipo enemigo
         equipoEnemigo.clear()

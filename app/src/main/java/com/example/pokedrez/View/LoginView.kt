@@ -2,12 +2,12 @@ package com.example.pokedrez.View
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.*
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.*
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
@@ -23,12 +23,15 @@ fun LoginScreen(navController: NavController, sessionManager: SessionManager) {
     var username by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var error by remember { mutableStateOf(false) }
+    val loginSuccess by loginViewModel.loginSuccess.observeAsState(false)
+
 
     Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(16.dp),
         verticalArrangement = Arrangement.Center
+
     ) {
         TextField(
             value = username,
@@ -45,7 +48,7 @@ fun LoginScreen(navController: NavController, sessionManager: SessionManager) {
         )
         Spacer(modifier = Modifier.height(16.dp))
         Button(onClick = {
-            // Llamamos al método login del loginViewModel para intentar realizar el inicio de sesión.
+            // Llamamos al mé login del loginViewModel para intentar realizar el inicio de sesión.
 
             loginViewModel.login(username, password)
 
@@ -61,5 +64,16 @@ fun LoginScreen(navController: NavController, sessionManager: SessionManager) {
             // El texto dentro del botón es "Entrar"
             Text(text = "Entrar")
         }
+        // Si el login es exitoso, navegamos a la vista de inicio (HomeView).
+        // Se observa el estado loginSuccess y si es verdadero, se realiza la navegación.
+        if (loginSuccess) {
+            // LaunchedEffect permite ejecutar un efecto secundario que se ejecuta una sola vez
+            // cuando se produce el cambio en el estado observado.
+            LaunchedEffect(Unit) {
+                // Navegamos a la ruta "Home" después de un inicio de sesión exitoso.
+                navController.navigate("DashBoard")
+            }
+        }
     }
+
 }

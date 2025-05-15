@@ -11,7 +11,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 object RetrofitInstance {
     private lateinit var context: Context
     private lateinit var sessionManager: SessionManager
-    private const val BASE_URL = "https://api.ejemplo.com/" //TODO
+    private const val BASE_URL = "https://ap-production-bf33.up.railway.app"
     fun init(context: Context) {
         this.context = context.applicationContext
         sessionManager = SessionManager(context)

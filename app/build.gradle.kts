@@ -56,7 +56,6 @@ dependencies {
     //Retrofit
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
-    implementation(libs.androidx.navigation.compose.jvmstubs)
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.3")
     // OkHttp (para manejar el cliente HTTP)
     implementation("com.squareup.okhttp3:okhttp:4.9.0")
@@ -69,6 +68,9 @@ dependencies {
     implementation("androidx.compose.material3:material3")
     implementation("androidx.compose.material3:material3:1.1.1")
     implementation("androidx.compose.material:material-icons-extended:1.5.4")
+    //NAV
+    implementation("androidx.navigation:navigation-compose:2.7.7")
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
