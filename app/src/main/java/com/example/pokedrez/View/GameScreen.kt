@@ -1,17 +1,130 @@
 package com.example.pokedrez.View
 
-
-
-import androidx.compose.runtime.*
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import com.example.pokedrez.R
 import com.example.pokedrez.SessionManager.SessionManager
 import com.example.pokedrez.ViewModel.GameViewModel
 import com.example.pokedrez.ViewModelFactory.GameScreenModelFactory
+import com.example.pokedrez.model.Pokemon
+import androidx.compose.runtime.setValue // ← Este puede ser necesario si usas `var` con `by`
+
 
 @Composable
 fun GameScreen(navController: NavController, sessionManager: SessionManager) {
-    val GameScreenViewModel: GameViewModel = viewModel(factory = GameScreenModelFactory(sessionManager))
+    val gameScreenViewModel: GameViewModel = viewModel(factory = GameScreenModelFactory(sessionManager))
+    val equipoJugador by gameScreenViewModel.equipoJugador.observeAsState(emptyList())
+    val equipoEnemigo by gameScreenViewModel.equipoEnemigo.observeAsState(emptyList())
+    val tienda by gameScreenViewModel.tienda.observeAsState(emptyList())
+
+    Box(modifier = Modifier.fillMaxSize()) {
+        // Imagen de fondo
+        Image(
+            painter = painterResource(id = R.drawable.bg),
+            contentDescription = null,
+            contentScale = ContentScale.Crop,
+            modifier = Modifier.matchParentSize()
+        )
+
+        // Contenido encima de la imagen
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(top = 200.dp),
+            verticalArrangement = Arrangement.SpaceEvenly
+        ) {
+            LazyRow(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(1f),
+                horizontalArrangement = Arrangement.Center
+            ) {
+                for (i in equipoEnemigo) {
+                    item {
+                        Column(
+                            modifier = Modifier.padding(horizontal = 8.dp),
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ) {
+                            Image(
+                                painter = painterResource(id = context.resources.getIdentifier(imageName, "drawable", context.packageName)),
+                                contentDescription = i.nombre,
+                                modifier = Modifier.padding(4.dp)
+                            )
+                            Text(text = i.nombre, color = Color.White)
+                        }
+                    }
+                }
+            }
 
 
+
+            // Row 2 - Jugador
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(1f),
+                horizontalArrangement = Arrangement.Center
+            ) {
+                equipoJugador.forEach { pokemon ->
+                    Column(
+                        modifier = Modifier.padding(horizontal = 8.dp),
+                        horizontalAlignment = androidx.compose.ui.Alignment.CenterHorizontally
+                    ) {
+                        pokemon.imagenResId?.let { imageResId ->
+                            Image(
+                                painter = painterResource(id = imageResId),
+                                contentDescription = pokemon.nombre,
+                                modifier = Modifier.padding(4.dp)
+                            )
+                        }
+                        Text(text = pokemon.nombre, color = Color.White)
+                    }
+                }
+            }
+
+            // Row 3 - Tienda
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(1f),
+                horizontalArrangement = Arrangement.Center
+            ) {
+                tienda.forEach { pokemon ->
+                    Column(
+                        modifier = Modifier.padding(horizontal = 8.dp),
+                        horizontalAlignment = androidx.compose.ui.Alignment.CenterHorizontally
+                    ) {
+                        pokemon.imagenResId?.let { imageResId ->
+                            Image(
+                                painter = painterResource(id = imageResId),
+                                contentDescription = pokemon.nombre,
+                                modifier = Modifier.padding(4.dp)
+                            )
+                        }
+                        Text(text = pokemon.nombre, color = Color.White)
+                    }
+                }
+            }
+        }
+    }
 }

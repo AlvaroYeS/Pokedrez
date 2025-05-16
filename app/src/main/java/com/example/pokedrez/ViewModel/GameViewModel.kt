@@ -1,47 +1,53 @@
 package com.example.pokedrez.ViewModel
 
+import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.pokedrez.RetrofitInstance
 import com.example.pokedrez.SessionManager.SessionManager
 import com.example.pokedrez.model.Pokemon
 import com.example.pokedrez.model.User
+import kotlinx.coroutines.launch
+import retrofit2.Retrofit
+import kotlin.random.Random
 
 
 class GameViewModel  (private val sessionManager: SessionManager) : ViewModel() {
 
     lateinit var user: User
-    val equipoJugador = mutableListOf<Pokemon>()
-    val equipoEnemigo = mutableListOf<Pokemon>()
-    val tienda = mutableListOf<Pokemon>()
+    var pokemonList = mutableListOf<Pokemon>()
+    private val _equipoJugador = MutableLiveData<List<Pokemon>>(emptyList())
+    val equipoJugador: LiveData<List<Pokemon>> get() = _equipoJugador
 
-//    fun iniciarSesion(username: String, password: String): Boolean {
-//        // Simulación de autenticación
-//        if (username.isNotEmpty() && password.isNotEmpty()) {
-//            user = User(x)
-//            return true
-//        }
-//        return false
-//    }
+    private val _equipoEnemigo = MutableLiveData<List<Pokemon>>(emptyList())
+    val equipoEnemigo: LiveData<List<Pokemon>> get() = _equipoEnemigo
+
+    private val _tienda = MutableLiveData<List<Pokemon>>(emptyList())
+    val tienda: LiveData<List<Pokemon>> get() = _tienda
+
+    init {
+        cargarPokemon()
+    }
+
+    fun cargarPokemon() {
+        viewModelScope.launch {
+            try {
+                val response = RetrofitInstance.api.getPokemons()
+                pokemonList = response.toMutableList()
+            } catch (e: Exception) {
+                Log.e("GameViewModel", "Error: ${e.message}")
+            }
+        }
+    }
 
     fun cargarTienda() {
         // Simulación de carga de tienda desde una API
         tienda.clear()
         for (i in 1..5) {
             tienda.add(
-                Pokemon(
-                    id = i,
-                    nombre = "$i",
-                    tipo1 = "Físico",
-                    tipo2 = "Físico",
-                    hp = 100,
-                    ad = 20,
-                    ap = 10,
-                    armor = 5,
-                    mr = 5,
-                    haste = 1.0,
-                    mana = 50,
-                    tier = 1,
-                    evo = false
-                )
+                pokemonList[Random.nextInt(0, 150)]
             )
         }
     }

@@ -22,7 +22,7 @@ fun NavManager(sessionManager: SessionManager) {
     // startDestination se establece dependiendo de si el usuario está logueado o no.
     // Si loginSuccess es true, la pantalla inicial será "Home", de lo contrario, será "Login".
     //NavHost(navController = navController, startDestination = if (loginSuccess) "Home" else "Login") {
-    NavHost(navController = navController, startDestination = "GameScreen") {
+    NavHost(navController = navController, startDestination = "Game") {
 
         // Pantalla de Home: Si el usuario está logueado, esta pantalla se muestra
         composable("DashBoard") {
@@ -35,8 +35,7 @@ fun NavManager(sessionManager: SessionManager) {
         }
 
         composable("Game") {
-            GameScreen (navController, sessionManager)
+            GameScreen(navController, sessionManager)
         }
-
     }
 }
