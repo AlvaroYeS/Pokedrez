@@ -10,8 +10,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
@@ -37,7 +39,7 @@ fun GameScreen(navController: NavController, sessionManager: SessionManager) {
     val equipoEnemigo by gameScreenViewModel.equipoEnemigo.observeAsState(emptyList())
     val tienda by gameScreenViewModel.tienda.observeAsState(emptyList())
 
-    Box(modifier = Modifier.fillMaxSize()) {
+        Box(modifier = Modifier.fillMaxSize()) {
         // Imagen de fondo
         Image(
             painter = painterResource(id = R.drawable.bg),
@@ -45,7 +47,6 @@ fun GameScreen(navController: NavController, sessionManager: SessionManager) {
             contentScale = ContentScale.Crop,
             modifier = Modifier.matchParentSize()
         )
-
         // Contenido encima de la imagen
         Column(
             modifier = Modifier
@@ -59,72 +60,41 @@ fun GameScreen(navController: NavController, sessionManager: SessionManager) {
                     .weight(1f),
                 horizontalArrangement = Arrangement.Center
             ) {
-                for (i in equipoEnemigo) {
-                    item {
-                        Column(
-                            modifier = Modifier.padding(horizontal = 8.dp),
-                            horizontalAlignment = Alignment.CenterHorizontally
-                        ) {
-                            Image(
-                                painter = painterResource(id = context.resources.getIdentifier(imageName, "drawable", context.packageName)),
-                                contentDescription = i.nombre,
-                                modifier = Modifier.padding(4.dp)
-                            )
-                            Text(text = i.nombre, color = Color.White)
-                        }
-                    }
+                items(equipoEnemigo) { pokemon ->
+                    Text(text = pokemon.namePokemon)
+                    Text(text = pokemon.hp.toString())
                 }
             }
-
-
-
             // Row 2 - Jugador
-            Row(
+            LazyRow(
                 modifier = Modifier
                     .fillMaxWidth()
                     .weight(1f),
                 horizontalArrangement = Arrangement.Center
             ) {
-                equipoJugador.forEach { pokemon ->
-                    Column(
-                        modifier = Modifier.padding(horizontal = 8.dp),
-                        horizontalAlignment = androidx.compose.ui.Alignment.CenterHorizontally
-                    ) {
-                        pokemon.imagenResId?.let { imageResId ->
-                            Image(
-                                painter = painterResource(id = imageResId),
-                                contentDescription = pokemon.nombre,
-                                modifier = Modifier.padding(4.dp)
-                            )
-                        }
-                        Text(text = pokemon.nombre, color = Color.White)
-                    }
+                items(equipoJugador) { pokemon ->
+                    Text(text = pokemon.namePokemon)
+                    Text(text = pokemon.hp.toString())
                 }
             }
 
             // Row 3 - Tienda
-            Row(
+
+            LazyRow(
                 modifier = Modifier
                     .fillMaxWidth()
                     .weight(1f),
                 horizontalArrangement = Arrangement.Center
             ) {
-                tienda.forEach { pokemon ->
-                    Column(
-                        modifier = Modifier.padding(horizontal = 8.dp),
-                        horizontalAlignment = androidx.compose.ui.Alignment.CenterHorizontally
+                items(tienda) { pokemon ->
+                    Button(onClick = {gameScreenViewModel.addPokemon(pokemon)
+                        gameScreenViewModel.setEleccion(true)}
                     ) {
-                        pokemon.imagenResId?.let { imageResId ->
-                            Image(
-                                painter = painterResource(id = imageResId),
-                                contentDescription = pokemon.nombre,
-                                modifier = Modifier.padding(4.dp)
-                            )
-                        }
-                        Text(text = pokemon.nombre, color = Color.White)
+                        Text(text = pokemon.namePokemon)
                     }
                 }
             }
         }
     }
 }
+
