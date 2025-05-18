@@ -12,6 +12,9 @@ data class Pokemon(
     val mr: Int,
     val haste: Double,
     val mana: Int,
+    val imagenTienda: String,
+    val imagenFrente: String,
+    val imagenTrasera: String,
     val tier: Int,
     val evo: Int
 )

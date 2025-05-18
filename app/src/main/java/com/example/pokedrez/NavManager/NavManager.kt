@@ -10,6 +10,7 @@ import com.example.pokedrez.SessionManager.SessionManager
 import com.example.pokedrez.View.GameScreen
 import com.example.pokedrez.View.DashboardScreen
 import com.example.pokedrez.View.LoginScreen
+import com.example.pokedrez.View.ResultadoScreen
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
@@ -22,7 +23,7 @@ fun NavManager(sessionManager: SessionManager) {
     // startDestination se establece dependiendo de si el usuario está logueado o no.
     // Si loginSuccess es true, la pantalla inicial será "Home", de lo contrario, será "Login".
     //NavHost(navController = navController, startDestination = if (loginSuccess) "Home" else "Login") {
-    NavHost(navController = navController, startDestination = "Game") {
+    NavHost(navController = navController, startDestination = "Login") {
 
         // Pantalla de Home: Si el usuario está logueado, esta pantalla se muestra
         composable("DashBoard") {
@@ -36,6 +37,9 @@ fun NavManager(sessionManager: SessionManager) {
 
         composable("Game") {
             GameScreen(navController, sessionManager)
+        }
+        composable("Resultado"){
+            ResultadoScreen(navController, sessionManager)
         }
     }
 }

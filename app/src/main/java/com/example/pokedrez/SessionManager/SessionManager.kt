@@ -7,6 +7,7 @@ import android.util.Log
 class SessionManager(context: Context) {
     private val prefs: SharedPreferences = context.getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
     private val USER_ID_KEY = "USER_ID" // Definir la clave como constante
+    private val RESULTADO = "RESULTADO"
 
     fun saveUserId(userId: Int) {
         prefs.edit().putInt(USER_ID_KEY, userId).apply()
@@ -14,6 +15,18 @@ class SessionManager(context: Context) {
         Log.d("SessionManager", "Prefs content: ${prefs.all}")
     }
 
+    fun saveResultado(resultado: String) {
+        prefs.edit().putString(RESULTADO, resultado).apply()
+        Log.d("SessionManager", "Resultado saved: $resultado")
+        Log.d("SessionManager", "Prefs content: ${prefs.all}")
+    }
+    fun getResultado(): String{
+        val resultado = prefs.getString(RESULTADO, "")?: ""
+        Log.d("SessionManager", "RESULTADO retrieved: $resultado")
+        Log.d("SessionManager", "Prefs content: ${prefs.all}") // Añadir este log
+        return resultado
+
+    }
     fun getUserId(): Int {
 
         val userId = prefs.getInt(USER_ID_KEY, -1)

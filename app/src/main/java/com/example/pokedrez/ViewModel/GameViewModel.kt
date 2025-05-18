@@ -32,9 +32,12 @@ class GameViewModel  (private val sessionManager: SessionManager) : ViewModel() 
     private val _eleccion = MutableLiveData<Boolean>()
     val eleccion: LiveData<Boolean> get() = _eleccion
 
-
     var enemigo = "Vivo"
     var jugador = "Vivo"
+
+    private val _partida = MutableLiveData<String>()
+    val partida: LiveData<String> get() = _partida
+
 
     init {
         cargarPokemon()
@@ -192,9 +195,11 @@ class GameViewModel  (private val sessionManager: SessionManager) : ViewModel() 
 
         if (equipoEnemigo.isEmpty()){
             enemigo = "Muerto"
+            _partida.value = "Victoria"
         }
         if (equipoJugador.isEmpty()){
             jugador = "Muerto"
+            _partida.value = "Derrota"
         }
     }
 }
